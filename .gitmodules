@@ -1,0 +1,9 @@
+[submodule "referto/webpack"]
+	path = referto/webpack
+	url = https://github.com/webpack/webpack.git
+[submodule "referto/webpack-demos"]
+	path = referto/webpack-demos
+	url = https://github.com/ruanyf/webpack-demos.git
+[submodule "referto/WebpackTutorial"]
+	path = referto/WebpackTutorial
+	url = https://github.com/AriaFallah/WebpackTutorial.git
