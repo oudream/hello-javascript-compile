@@ -1,5 +1,6 @@
-var path = require('path')
-var webpack = require('webpack')
+const path =require('path')
+const webpack = require('webpack')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: ['./src/index'], // .js after index is optional
@@ -7,18 +8,31 @@ module.exports = {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js'
   },
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false,
-      },
-    }),
-    new webpack.optimize.OccurrenceOrderPlugin()
-  ],
   module: {
-    loaders: [{
-      test: /\.css$/,
-      loaders: ['style', 'css']
-    }]
-  }
+    rules: [
+      {
+        test: /\.css$/,
+        loader: "css-loader"
+      }
+    ]
+  },
+  optimization: {
+    minimizer: [
+      // we specify a custom UglifyJsPlugin here to get source maps in production
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        uglifyOptions: {
+          compress: false,
+          ecma: 6,
+          mangle: true
+        },
+        sourceMap: true
+      })
+    ]
+  },
+  node: {
+    dns: 'mock',
+    net: 'mock'
+  },
 }
